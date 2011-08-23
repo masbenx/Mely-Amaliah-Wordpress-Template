@@ -5,11 +5,7 @@
 					<p class="copyright">&copy; 2011 <a href="http://masbenx.net">Mely Amaliahs WordPress Theme</a></p>
 					<div class="menu-footer-container">
 						<ul id="menu-footer" class="footernav">
-							<li id="menu-item-29" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-29"><a href="#">Uncategorized</a></li>
-							<li id="menu-item-30" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-30"><a href="#">Graphic Design</a></li>
-							<li id="menu-item-31" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-31"><a href="#">Plugins</a></li>
-							<li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-32"><a href="#">Sample Page</a></li>
-							<li id="menu-item-33" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33"><a href="#">Sample Page</a></li>
+							<?php menu_list('footer-menu', 'menu-item menu-item-type-taxonomy menu-item-object-category'); ?>
 						</ul>
 					</div>
 				</div><!--bar-->

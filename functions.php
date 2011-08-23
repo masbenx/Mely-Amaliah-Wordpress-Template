@@ -6,7 +6,7 @@ if ( function_exists( 'add_theme_support' ) ) {
 	//menus
 	add_theme_support( 'menus' );
 	register_nav_menu( 'header-menu', __( 'Header Menu' ) );
-	
+	register_nav_menu( 'footer-menu', __( 'Footer Menu' ) );
 	
 	//image
 	add_theme_support( 'post-thumbnails' );
@@ -17,21 +17,17 @@ if ( function_exists( 'add_image_size' ) ) {
 	add_image_size( 'homepage-thumb', 540, 270, true ); //(cropped)
 }
 
-function header_menu_list() {
+function menu_list($menu_name='', $class='') {
 	
 	// Get the nav menu based on $menu_name (same as 'theme_location' or 'menu' arg to wp_nav_menu)
     // This code based on wp_nav_menu's code to get Menu ID from menu slug
 
-    $menu_name = 'header-menu';
-
+    
     if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
 	$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
-
 	$menu_items = wp_get_nav_menu_items($menu->term_id);
-
 	$menu_list = '';
 	
-	$class = 'menu-item menu-item-type-custom menu-item-object-custom menu-item-home';
 	foreach ( (array) $menu_items as $key => $menu_item ) {
 	    $title = $menu_item->title;
 	    $url = $menu_item->url;
@@ -39,7 +35,7 @@ function header_menu_list() {
 	}
 	$menu_list .= '';
     } else {
-	$menu_list = '<li class="'.$class.'">Menu "' . $menu_name . '" not defined.</li>';
+	$menu_list = '<li class="'.$class.'"></li>';
     }
     // $menu_list now ready to output
 
@@ -135,40 +131,28 @@ function niceTime($time) {
 }
 /** end twitter client **/
 
-
-/** start flickr image function **/
-class FlickrImages {
-	private $xml;
-
-	public function __construct( $rss_url ) {
-		$this->xml = simplexml_load_file( $rss_url );
-	}
-
-	public function getTitle() {
-		return $this->xml->channel->title;
-	}
-
-	public function getProfileLink() {
-		return $this->xml->channel->link;
-	}
-
-	public function getImages() {
-		$images = array();
-		$regx = "/<img(.+)\/>/";
-
-		foreach( $this->xml->channel->item as $item ) {
-			preg_match( $regx, $item->description, $matches );
-
-			$images[] = array(
-					  'title' => $item->title,
-					  'link' => $item->link,
-					  'thumb' => $matches[ 0 ]
-					);
-		}
-
-		return $images;
-	}
+function flickr_gallery (){
+	require_once(dirname( __FILE__ ) . '/lib/phpFlickr/phpFlickr.php');
+	
+	$flickr_username = get_option('MA_flickr');
+	$result = '';
+	if (!empty($flickr_username)):
+		$phpFlickrObj = new phpFlickr('9616622114d6c8bc5994695fb0fd87d0');
+	
+		$user = $phpFlickrObj->people_findByUsername($flickr_username);
+		$user_url = $phpFlickrObj->urls_getUserPhotos($user['id']);
+		$photos = $phpFlickrObj->people_getPublicPhotos($user['id'], NULL, NULL, 4);
+		
+		$result = '<ul class="flickrPhotos">';
+		foreach ($photos['photos']['photo'] as $photo) :
+			$result .= '<a class="lightbox" rel="flickr" href="'.$phpFlickrObj->buildPhotoURL($photo, "large").'" title="'.$photo['title'].' (on Flickr)">';
+		  	$result .= '<img src="'.$phpFlickrObj->buildPhotoURL($photo, "square").'" alt="'.$photo['title'].'" title="'.$photo['title'].'" />';
+			$result .= '</a></li>';
+		endforeach;
+		$result .= '</ul>';
+				
+	endif;
+	echo $result;
 }
-/** end of flickr image function **/
 
 ?>
