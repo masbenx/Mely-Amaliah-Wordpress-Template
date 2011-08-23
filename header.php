@@ -27,12 +27,18 @@
 				<div class="frame-inside">
 					<!-- header navigation menu -->
 					<div class="menu-header-container">
+						 
 						<ul id="menu-header" class="nav">
 							<li id="menu-item-109" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-109"><a href="<?php bloginfo('url'); ?>">Home</a></li>
+							<?php //wp_nav_menu( array( 'menu' => 'li', 'menu_class' => 'menu-item menu-item-type-custom menu-item-object-custom menu-item-home', 'theme_location' => 'primary-menu', 'items_wrap' => '%3$s' )); ?>
+							<?php header_menu_list(); ?>
+							<!--
 							<li id="menu-item-110" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-110"><a href="sample-page.html">Sample Page</a></li>
 							<li id="menu-item-85" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-85"><a href="http://#">Drop Menu</a></li>
 							<li id="menu-item-218" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-218"><a href="contact.html">Contact</a></li>
+							!-->
 						</ul>
+						
 					</div>								
 								
 					<!-- social icons -->

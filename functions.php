@@ -3,13 +3,47 @@ require_once ( dirname( __FILE__ ) . '/lib/theme-options.php' );
 require_once( dirname( __FILE__ ) .'/lib/wcs_tud.php');
 
 if ( function_exists( 'add_theme_support' ) ) {
+	//menus
+	add_theme_support( 'menus' );
+	register_nav_menu( 'header-menu', __( 'Header Menu' ) );
+	
+	
+	//image
 	add_theme_support( 'post-thumbnails' );
-	add_theme_support( 'post-thumbnails', array( 'post', 'movie' ) );
     set_post_thumbnail_size( 540, 270 ); // default Post Thumbnail dimensions   
 }
 
 if ( function_exists( 'add_image_size' ) ) { 
 	add_image_size( 'homepage-thumb', 540, 270, true ); //(cropped)
+}
+
+function header_menu_list() {
+	
+	// Get the nav menu based on $menu_name (same as 'theme_location' or 'menu' arg to wp_nav_menu)
+    // This code based on wp_nav_menu's code to get Menu ID from menu slug
+
+    $menu_name = 'header-menu';
+
+    if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
+	$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
+
+	$menu_items = wp_get_nav_menu_items($menu->term_id);
+
+	$menu_list = '';
+	
+	$class = 'menu-item menu-item-type-custom menu-item-object-custom menu-item-home';
+	foreach ( (array) $menu_items as $key => $menu_item ) {
+	    $title = $menu_item->title;
+	    $url = $menu_item->url;
+	    $menu_list .= '<li class="'.$class.'"><a href="' . $url . '">' . $title . '</a></li>';
+	}
+	$menu_list .= '';
+    } else {
+	$menu_list = '<li class="'.$class.'">Menu "' . $menu_name . '" not defined.</li>';
+    }
+    // $menu_list now ready to output
+
+    echo $menu_list;
 }
 
 
