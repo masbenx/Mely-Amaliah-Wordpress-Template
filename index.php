@@ -8,7 +8,7 @@
 				<?php if (have_posts()) : ?>
 				<?php while (have_posts()) : the_post(); ?>
 				<!-- grab the posts -->				
-				<div data-id="post-81" data-type="photography" class="post-81 photography post clearfix project">
+				<div data-id="post-81" data-type="photography" <?php post_class(" post clearfix project"); ?>>
 					<div class="box">
 						<div class="shadow clearfix">
 							<div class="frame">
@@ -35,19 +35,23 @@
 						<div class="bar" >
 							<div class="bar-frame clearfix">
 								<div class="date">
-									<strong class="day"><?php the_time('j') ?></strong>
+									<strong class="day"><?php the_time('d') ?></strong>
 									<div class="holder">
-										<span class="month"><?php the_time('F') ?></span>
+										<span class="month"><?php the_time('M') ?></span>
 										<span class="year"><?php the_time('Y') ?></span>
 									</div>
 								</div>
 								<div class="author">
 									<strong class="title">AUTHOR</strong>
-									<a href="<?php the_author_url(); ?>" title="Visit <?php the_author(); ?>;s website" rel="external"><?php the_author(); ?></a>
+									<a href="<?php the_author_meta('url'); ?>" title="Visit <?php the_author_meta('display_name'); ?>;s website" rel="external"><?php the_author_meta('display_name'); ?></a>
 								</div>
 								<div class="categories">
 									<strong class="title">CATEGORY</strong>
 									<p><?php the_category(', ') ?></p>
+								</div>
+								<div class="categories">
+									<strong class="title">CATEGORY</strong>
+									<p><?php the_tags(', ') ?></p>
 								</div>
 								<div class="comments">
 									<strong class="title">COMMENTS</strong>

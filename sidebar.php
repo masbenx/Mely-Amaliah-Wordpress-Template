@@ -2,7 +2,7 @@
 				<div id="sidebar">
 					<!-- grab the logo -->
 					<h1 class="logo-title">
-						<a href="http://masbenx.net/"><img class="logo" src="<?php bloginfo('template_directory');?>/images/masbenx.png" alt="Bugatti Type 35B" height="40" /></a>
+						<a href="http://masbenx.net/"><img class="logo" src="<?php echo get_template_directory_uri();?>/images/masbenx.png" alt="Bugatti Type 35B" height="40" /></a>
 					</h1>
 					<!-- otherwise show the site title and description -->	
 		            	
@@ -19,6 +19,13 @@
 							<a target="_blank" class="flickr-more" href="http://www.flickr.com/photos/<?php echo get_option('MA_flickr'); ?>" title="">More Photos &rarr;</a>
 						</div>
 					</div>
+									
+					<?php if (dynamic_sidebar()):?>
+					<div class="widget">
+						<?php dynamic_sidebar( 'Right Sidebar' ); ?>
+					</div>
+					<?php endif;?>
+					
 				</div><!--sidebar-->
 				
 				<div style="clear:both;"></div>

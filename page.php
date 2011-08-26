@@ -2,14 +2,13 @@
 		<div id="main" class="clearfix">			
 			<!-- grab the sidebar -->
 			<?php get_sidebar();?>
-			<!-- sidebar wrap -->			
+			<!-- sidebar wrap -->		
 			
 			<div id="content" class="filter-posts">
-				<?php if ( ! isset( $content_width ) ) $content_width = 900;?>
 				<?php if (have_posts()) : ?>
 				<?php while (have_posts()) : the_post(); ?>
 				<!-- grab the posts -->				
-				<div data-id="post-<?php the_ID(); ?>" data-type="photography" <?php post_class(" post clearfix project"); ?>>
+				<div data-id="post-<?php the_ID(); ?>" data-type="" <?php post_class(" post clearfix project"); ?>>
 					<div class="box">
 						<div class="shadow clearfix">
 							<div class="frame">
@@ -19,9 +18,7 @@
 								<h2 class="entry-title"><a href="<?php the_permalink() ?>" title="Permanent Link to <?php the_title(); ?>"><?php the_title(); ?></a></h2>
 								<?php 
 									}
-								?>
-								<div class="okvideo">
-								</div>							
+								?>															
 								<?php if ( has_post_thumbnail() ): ?>
 										<a class="post-thumb" href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail( 'homepage-thumb' );?></a>
 								<?php endif; ?>
@@ -33,44 +30,16 @@
 						</div><!-- shadow -->
 						
 						<!-- meta info bar -->
-						<div class="bar" >
+						<div class="bar" style="display:none;">
 							<div class="bar-frame clearfix">
-								<div class="date">
-									<strong class="day"><?php the_time('j') ?></strong>
-									<div class="holder">
-										<span class="month"><?php the_time('M') ?></span>
-										<span class="year"><?php the_time('Y') ?></span>
-									</div>
-								</div>
 								<div class="author">
-									<strong class="title">AUTHOR</strong>
-									<a href="<?php the_author_meta('url'); ?>" title="Visit <?php the_author_meta('display_name'); ?>;s website" rel="external"><?php the_author_meta('display_name'); ?></a>
-								</div>
-								<div class="categories">
-									<strong class="title">CATEGORY</strong>
-									<p><?php the_category(', ') ?></p>
-								</div>
-								<div class="categories">
-									<strong class="title">CATEGORY</strong>
-									<p><?php the_tags(', ') ?></p>
-								</div>
-								<div class="comments">
-									<strong class="title">COMMENTS</strong>
-									<a href="<?php the_permalink() ?>"><?php comments_number( '0 comment', '1 comment', '% comments' ); ?></a>
-								</div>
-								<div class="next-post">
-									<?php next_post_link('<strong class="title">NEXT POST</strong> %link'); ?>
-								</div>
-								
-								<div class="prev-post">
-									<?php previous_post_link('<strong class="title">PREVIOUS POST</strong> %link'); ?>
-								</div>
+								</div>								
 							</div><!-- bar frame -->
 						</div><!-- bar -->
 					</div><!-- box -->
 				</div><!--writing post-->
 				
-				<?php comments_template( '', true ); ?>
+				
 				
 				<?php endwhile; ?><!-- end loop post -->
 				<?php endif;?>
@@ -78,8 +47,8 @@
 				<div style="clear:both;"> </div>
 				
 				<div class="post-nav">
-					<div class="postnav-left"><?php previous_posts_link('&laquo; Previous Entries') ?></div>
-					<div class="postnav-right"><?php next_posts_link('Next Entries &raquo;','') ?></div>
+					<div class="postnav-left"></div>
+					<div class="postnav-right"></div>
 					<div style="clear:both;"> </div>
 				</div><!--end post navigation-->				
 								

@@ -1,8 +1,10 @@
 <?php 
-require_once ( dirname( __FILE__ ) . '/lib/theme-options.php' );
+require_once ( dirname( __FILE__ ) . '/theme-options.php' );
 require_once( dirname( __FILE__ ) .'/lib/wcs_tud.php');
 
 if ( function_exists( 'add_theme_support' ) ) {
+	add_theme_support( 'automatic-feed-links' );
+	
 	//menus
 	add_theme_support( 'menus' );
 	register_nav_menu( 'header-menu', __( 'Header Menu' ) );
@@ -16,6 +18,13 @@ if ( function_exists( 'add_theme_support' ) ) {
 if ( function_exists( 'add_image_size' ) ) { 
 	add_image_size( 'homepage-thumb', 540, 270, true ); //(cropped)
 }
+
+register_sidebar(array(
+  'name' => 'LeftSidebar',
+  'description' => 'Widgets in this area will be shown on the left-hand side.',
+  'before_title' => '<h2>',
+  'after_title' => '</h2>'
+));
 
 function menu_list($menu_name='', $class='') {
 	
@@ -145,7 +154,7 @@ function flickr_gallery (){
 		
 		$result = '<ul class="flickrPhotos">';
 		foreach ($photos['photos']['photo'] as $photo) :
-			$result .= '<a class="lightbox" rel="flickr" href="'.$phpFlickrObj->buildPhotoURL($photo, "large").'" title="'.$photo['title'].' (on Flickr)">';
+			$result .= '<li><a class="lightbox" rel="flickr" href="'.$phpFlickrObj->buildPhotoURL($photo, "large").'" title="'.$photo['title'].' (on Flickr)">';
 		  	$result .= '<img src="'.$phpFlickrObj->buildPhotoURL($photo, "square").'" alt="'.$photo['title'].'" title="'.$photo['title'].'" />';
 			$result .= '</a></li>';
 		endforeach;
@@ -154,5 +163,6 @@ function flickr_gallery (){
 	endif;
 	echo $result;
 }
+
 
 ?>
